@@ -1,20 +1,34 @@
 <template>
-    <div>
-      <header>
-        my Trello
-      </header>
-      <main>
+  <div>
+    <header>
+      my Trello
+    </header>
+    <main>
       <p class="info-line">All: 0 tasks</p>
-      <list-add />
+      <list v-for="(item, index) in lists"
+            :key="item.id"
+            :title="item.title"
+            :listIndex="index"
+      />
+      <list-add/>
     </main>
   </div>
 </template>
 
 <script>
-import ListAdd from'./ListAdd.vue'
-  export default {
-    components: {
-      ListAdd
-    },
-  }
+import List from './List'
+import ListAdd from './ListAdd'
+import { mapState } from 'vuex'
+
+export default {
+  components: {
+    ListAdd,
+    List,
+  },
+  computed: {
+    ...mapState([
+      'lists'
+    ]),
+  },
+}
 </script>
